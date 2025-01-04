@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unique Somobai Somiti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Carousel styles */
+      .carousel {
+        position: relative;
+        height: 55%;
+      }
+      .carousel-images {
+        height: 120%;
+        display: flex;
+        transition: transform 0.8s ease-in-out;
+      }
+      .carousel-images img {
+        min-width: 100%;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar -->
+    <header class="bg-blue-700 text-white p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-bold">Unique Somobai Somiti</h1>
+        <button class="lg:hidden text-white focus:outline-none" id="menuToggle">
+          <svg
+            class="w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
+        <nav
+          id="navbarMenu"
+          class="hidden lg:flex lg:items-center lg:space-x-4"
+        >
+          <a href="#" class="block hover:underline">Home</a>
+          <a href="#submit-payment" class="block hover:underline"
+            >Submit Payment</a
+          >
+          <a href="#view-transactions" class="block hover:underline"
+            >View Transactions</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section with Carousel -->
+    <section class="carousel bg-gray-800 text-white h-64">
+      <div class="carousel-images">
+        <img src="1.jpg" alt="Image 1" />
+        <img src="2.jpg" alt="Image 2" />
+        <img src="3.JPG" alt="Image 3" />
+      </div>
+    </section>
+
+    <!-- Submit Payment Form -->
+    <section
+      id="submit-payment"
+      class="container-fluid mx-auto mt-8 p-6 bg-white shadow rounded"
+    >
+      <h2 class="text-2xl font-semibold mb-4">Submit Payment Info</h2>
+      <form
+        id="paymentForm"
+        name="submit-to-google-sheet"
+        class="grid grid-cols-2 gap-4"
+      >
+        <div>
+          <label for="shareholderName" class="block text-gray-700"
+            >Shareholder Name</label
+          >
+          <input
+            type="text"
+            id="shareholderName"
+            name="shareholderName"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+            required
+          />
+        </div>
+        <div>
+          <label for="shareNumber" class="block text-gray-700"
+            >Share Number</label
+          >
+          <input
+            type="number"
+            id="shareNumber"
+            name="shareNumber"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+            required
+          />
+        </div>
+        <div>
+          <label for="monthSelection" class="block text-gray-700"
+            >Select Month</label
+          >
+          <select
+            id="monthSelection"
+            name="Month"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+            required
+          >
+            <option value="" disabled selected>Select a month</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="numberOfShares" class="block text-gray-700"
+            >Number of Shares</label
+          >
+          <input
+            type="number"
+            id="numberOfShares"
+            name="numberOfShares"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+            required
+          />
+        </div>
+        <div>
+          <label for="transactionId" class="block text-gray-700"
+            >Transaction ID</label
+          >
+          <input
+            type="text"
+            id="transactionId"
+            name="transactionId"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+            required
+          />
+        </div>
+        <div>
+          <label for="paymentAmount" class="block text-gray-700"
+            >Payment Amount</label
+          >
+          <input
+            type="number"
+            id="paymentAmount"
+            name="paymentAmount"
+            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+            readonly
+          />
+        </div>
+      </form>
+      <button
+        type="submit"
+        class=" w-full mt-5 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+      >
+        Submit 
+      </button>
+      <p id="statusMessage" class="mt-4"></p>
+    </section>
+
+    <!-- View Transactions Section -->
+    <section
+      id="view-transactions"
+      class="container mx-auto mt-8 p-6 bg-white shadow rounded"
+    >
+      <h2 class="text-2xl font-semibold mb-4">View Transactions</h2>
+      <iframe
+        src=""
+        id="googleSheet"
+        class="w-full h-96 border rounded"
+        title="Google Sheet"
+      ></iframe>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+      <p>© 2025 Unique Somobai Somiti. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+      // Toggle Navbar
+      const menuToggle = document.getElementById("menuToggle");
+      const navbarMenu = document.getElementById("navbarMenu");
+
+      menuToggle.addEventListener("click", () => {
+        navbarMenu.classList.toggle("hidden");
+      });
+
+      // Carousel functionality
+      let currentIndex = 0;
+      const carouselImages = document.querySelector(".carousel-images");
+      const totalImages = document.querySelectorAll(
+        ".carousel-images img"
+      ).length;
+
+      function updateCarousel() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        carouselImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+
+      setInterval(updateCarousel, 3000);
+
+      // Payment amount calculation
+      function calculatePaymentAmount() {
+        const today = new Date();
+        const currentDay = today.getDate();
+
+        const numberOfSharesField = document.getElementById("numberOfShares");
+        const paymentAmountField = document.getElementById("paymentAmount");
+
+        let numberOfShares = parseInt(numberOfSharesField.value, 10);
+
+        if (isNaN(numberOfShares) || numberOfShares < 1) {
+          paymentAmountField.value = 0;
+          return;
+        }
+
+        if (numberOfShares > 2) {
+          numberOfShares = 2;
+        }
+
+        let baseAmount = numberOfShares === 1 ? 510 : 1020;
+        const lateFee =
+          currentDay > 10 ? (currentDay - 10) * 10 * numberOfShares : 0;
+
+        paymentAmountField.value = baseAmount + lateFee;
+      }
+
+      document
+        .getElementById("numberOfShares")
+        .addEventListener("input", calculatePaymentAmount);
+
+      // Submit form to Google Sheets
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbyiD-hhr9-QYwNBMHa6wIAb5YpJoqrCPrmb2XpT7r-mFiql-bHrfcQFKFEwxi8P948v/exec";
+      const form = document.forms["submit-to-google-sheet"];
+      const statusMessage = document.getElementById("statusMessage");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const submitButton = form.querySelector("button");
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            statusMessage.textContent = "Payment Submitted Successfully!";
+            statusMessage.className = "text-green-600 mt-4";
+            form.reset();
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Payment";
+          })
+          .catch((error) => {
+            statusMessage.textContent = "Error! Please try again later.";
+            statusMessage.className = "text-red-600 mt-4";
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Payment";
+          });
+      });
+      // Embed Google Sheet
+      document.getElementById("googleSheet").src =
+        "https://docs.google.com/spreadsheets/d/14N6pJIRhZLS09DDChSjTAdFnMVd9ZZd2h-rIFTbTtH0/edit?gid=0#gid=0";
+    </script>
+  </body>
+</html>
