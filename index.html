@@ -168,14 +168,18 @@
             readonly
           />
         </div>
-        <button
-        type="submit"
-        class=" w-full mt-5 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-      >
-        Submit 
-      </button>
+
+        <!-- This div will conditionally create a full-width row only for the submit button -->
+        <div class="col-span-2">
+          <button
+            type="submit"
+            class="w-full mt-5 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+          >
+            Submit
+          </button>
+        </div>
       </form>
-      
+
       <p id="statusMessage" class="mt-4"></p>
     </section>
 
