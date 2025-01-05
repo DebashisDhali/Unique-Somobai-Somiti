@@ -9,6 +9,21 @@
       html {
         scroll-behavior: smooth;
       }
+      body {
+        scroll-margin: 10px;
+      }
+      #nbar {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+      #qr-code img {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      #qr-code img:hover {
+        transform: scale(1.05);
+      }
 
       /* Carousel styles */
       .carousel {
@@ -28,7 +43,7 @@
   </head>
   <body class="bg-gray-100">
     <!-- Navbar -->
-    <header class="bg-blue-700 text-white p-4">
+    <header id="nbar" class="bg-blue-700 text-white p-4">
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-xl font-bold">Unique Somobai Somiti</h1>
         <button class="lg:hidden text-white focus:outline-none" id="menuToggle">
@@ -52,12 +67,14 @@
           class="hidden lg:flex lg:items-center lg:space-x-4"
         >
           <a href="#" class="block hover:underline">Home</a>
+          <a href="#qr-code" class="block hover:underline">QR</a>
           <a href="#submit-payment" class="block hover:underline"
             >Submit Payment</a
           >
           <a href="#view-transactions" class="block hover:underline"
             >View Transactions</a
           >
+          <a href="#contact" class="block hover:underline">Contact</a>
         </nav>
       </div>
     </header>
@@ -71,12 +88,21 @@
       </div>
     </section>
 
-    <!-- QR Code for send money -->
-     <section>
-      <div>
-        <img src="qr.jpg">
+    <!-- QR Code for Send Money -->
+    <section
+      id="qr-code"
+      class="container mx-auto mt-8 p-6 bg-white shadow rounded text-center"
+    >
+      <h2 class="text-2xl font-semibold mb-4">Send Money</h2>
+      <div class="flex justify-center items-center">
+        <img
+          src="qr.jpg"
+          alt="QR Code"
+          class="w-48 h-48 object-contain border rounded-lg shadow-lg"
+        />
       </div>
-     </section>
+      <p class="mt-4 text-gray-600">Scan the QR code to send your payment.</p>
+    </section>
 
     <!-- Submit Payment Form -->
     <section
@@ -202,6 +228,86 @@
         class="w-full h-96 border rounded"
         title="Google Sheet"
       ></iframe>
+    </section>
+
+    <section id="contact" class="bg-gray-100 py-8 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Section Title -->
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Get in Touch</h2>
+        <p class="text-gray-600 mb-8">
+          Have questions or want to work together? Fill out the form below, and
+          I’ll get back to you soon!
+        </p>
+
+        <!-- Contact Form -->
+        <form
+          action="#"
+          id="contact"
+          method="POST"
+          class="bg-white shadow-lg rounded-lg p-8 space-y-6"
+        >
+          <!-- Name Field -->
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Your Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+              class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <!-- Email Field -->
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Your Email</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <!-- Message Field -->
+          <div>
+            <label
+              for="message"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Your Message</label
+            >
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Enter your message"
+              rows="5"
+              class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button
+              type="submit"
+              class="w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-600 transition duration-300"
+            >
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
 
     <!-- Footer -->
