@@ -9,14 +9,21 @@
       html {
         scroll-behavior: smooth;
       }
+
       body {
-        scroll-margin: 10px;
+        scroll-margin: 30px;
       }
+
+      section {
+        scroll-margin-top: 100px; /* Ensures sections don't get hidden behind the navbar */
+      }
+
       #nbar {
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 10;
       }
+
       #qr-code img {
         transition: transform 0.3s ease-in-out;
       }
@@ -25,318 +32,422 @@
         transform: scale(1.05);
       }
 
-      /* Carousel styles */
-      .carousel {
-        position: relative;
-        height: 55%;
-      }
-      .carousel-images {
-        height: 120%;
+      #hero {
+        width: 100%;
+        height: 60vh;
         display: flex;
-        transition: transform 0.8s ease-in-out;
+        justify-content: center;
+        align-items: center;
       }
-      .carousel-images img {
-        min-width: 100%;
-        background-size: cover;
+
+      #hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Login Section Styles */
+      #login-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      #login-box {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      #login-box h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      #login-box input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      #login-box button {
+        background: #3b82f6;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #login-box button:hover {
+        background: #2563eb;
+      }
+
+      #login-error {
+        color: red;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      /* Hide main content initially */
+      #main-content {
+        display: none;
       }
     </style>
   </head>
   <body class="bg-gray-100">
-    <!-- Navbar -->
-    <header id="nbar" class="bg-blue-700 text-white p-4">
-      <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-bold">Unique Somobai Somiti</h1>
-        <button class="lg:hidden text-white focus:outline-none" id="menuToggle">
-          <svg
-            class="w-6 h-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            />
-          </svg>
-        </button>
-        <nav
-          id="navbarMenu"
-          class="hidden lg:flex lg:items-center lg:space-x-4"
-        >
-          <a href="#" class="block hover:underline">Home</a>
-          <a href="#qr-code" class="block hover:underline">QR</a>
-          <a href="#submit-payment" class="block hover:underline"
-            >Submit Payment</a
-          >
-          <a href="#view-transactions" class="block hover:underline"
-            >View Transactions</a
-          >
-          <a href="#contact" class="block hover:underline">Contact</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Hero Section with Carousel -->
-    <section class="carousel bg-gray-800 text-white h-64">
-      <div class="carousel-images">
-        <img src="1.jpg" alt="Image 1" />
-        <img src="2.jpg" alt="Image 2" />
-        <img src="3.JPG" alt="Image 3" />
-      </div>
-    </section>
-
-    <!-- QR Code for Send Money -->
-    <section
-      id="qr-code"
-      class="container mx-auto mt-8 p-6 bg-white shadow rounded text-center"
-    >
-      <h2 class="text-2xl font-semibold mb-4">Send Money</h2>
-      <div class="flex justify-center items-center">
-        <img
-          src="qr.jpg"
-          alt="QR Code"
-          class="w-48 h-48 object-contain border rounded-lg shadow-lg"
+    <!-- Login Section -->
+    <section id="login-section">
+      <div id="login-box">
+        <h2>Login to Access the Website</h2>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter Password"
+          class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
         />
-      </div>
-      <p class="mt-4 text-gray-600">Scan the QR code to send your payment.</p>
-    </section>
-
-    <!-- Submit Payment Form -->
-    <section
-      id="submit-payment"
-      class="container-fluid mx-auto mt-8 p-6 bg-white shadow rounded"
-    >
-      <h2 class="text-2xl font-semibold mb-4">Submit Payment Info</h2>
-      <form
-        id="paymentForm"
-        name="submit-to-google-sheet"
-        class="grid grid-cols-2 gap-4"
-      >
-        <div>
-          <label for="shareholderName" class="block text-gray-700"
-            >Shareholder Name</label
-          >
-          <input
-            type="text"
-            id="shareholderName"
-            name="shareholderName"
-            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            required
-          />
-        </div>
-        <div>
-          <label for="shareNumber" class="block text-gray-700"
-            >Share Number</label
-          >
-          <input
-            type="number"
-            id="shareNumber"
-            name="shareNumber"
-            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            required
-          />
-        </div>
-        <div>
-          <label for="monthSelection" class="block text-gray-700"
-            >Select Month</label
-          >
-          <select
-            id="monthSelection"
-            name="Month"
-            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            required
-          >
-            <option value="" disabled selected>Select a month</option>
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
-            <option value="April">April</option>
-            <option value="May">May</option>
-            <option value="June">June</option>
-            <option value="July">July</option>
-            <option value="August">August</option>
-            <option value="September">September</option>
-            <option value="October">October</option>
-            <option value="November">November</option>
-            <option value="December">December</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="numberOfShares" class="block text-gray-700"
-            >Number of Shares</label
-          >
-          <input
-            type="number"
-            id="numberOfShares"
-            name="numberOfShares"
-            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            required
-          />
-        </div>
-        <div>
-          <label for="transactionId" class="block text-gray-700"
-            >Transaction ID</label
-          >
-          <input
-            type="text"
-            id="transactionId"
-            name="transactionId"
-            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            required
-          />
-        </div>
-        <div>
-          <label for="paymentAmount" class="block text-gray-700"
-            >Payment Amount</label
-          >
-          <input
-            type="number"
-            id="paymentAmount"
-            name="paymentAmount"
-            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-            readonly
-          />
-        </div>
-
-        <!-- This div will conditionally create a full-width row only for the submit button -->
-        <div class="col-span-2">
-          <button
-            type="submit"
-            class="w-full mt-5 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-
-      <p id="statusMessage" class="mt-4"></p>
-    </section>
-
-    <!-- View Transactions Section -->
-    <section
-      id="view-transactions"
-      class="container mx-auto mt-8 p-6 bg-white shadow rounded"
-    >
-      <h2 class="text-2xl font-semibold mb-4">View Transactions</h2>
-      <iframe
-        src=""
-        id="googleSheet"
-        class="w-full h-96 border rounded"
-        title="Google Sheet"
-      ></iframe>
-    </section>
-
-    <section id="contact" class="bg-gray-100 py-8 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <!-- Section Title -->
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">Get in Touch</h2>
-        <p class="text-gray-600 mb-8">
-          Have questions or want to work together? Fill out the form below, and
-          I’ll get back to you soon!
-        </p>
-
-        <!-- Contact Form -->
-        <form
-          action="#"
-          id="contact"
-          method="POST"
-          class="bg-white shadow-lg rounded-lg p-8 space-y-6"
+        <button
+          id="login-button"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
         >
-          <!-- Name Field -->
+          Login
+        </button>
+        <p id="login-error">Incorrect Password. Please try again.</p>
+      </div>
+    </section>
+
+    <!-- Main Content (Hidden Initially) -->
+    <div id="main-content">
+      <!-- Navbar -->
+      <header id="nbar" class="bg-blue-700 text-white p-4">
+        <div class="container mx-auto">
+          <div class="flex justify-between items-center">
+            <h1 class="text-xl font-bold">Unique Somobai Somiti</h1>
+            <button
+              class="lg:hidden text-white focus:outline-none"
+              id="menuToggle"
+            >
+              <svg
+                class="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            </button>
+          </div>
+          <nav
+            id="navbarMenu"
+            class="hidden flex flex-col space-y-2 mt-2 lg:flex lg:flex-row lg:items-center lg:space-x-4 lg:space-y-0"
+          >
+            <a href="#" class="menu-item block hover:underline">Home</a>
+            <a href="#qr-code" class="menu-item block hover:underline">QR</a>
+            <a href="#submit-payment" class="menu-item block hover:underline"
+              >Submit Payment</a
+            >
+            <a href="#view-transactions" class="menu-item block hover:underline"
+              >View Transactions</a
+            >
+            <a href="#contact" class="menu-item block hover:underline"
+              >Contact</a
+            >
+            <button id="logout-button">Logout</button>
+            <!-- New Logout Button -->
+          </nav>
+        </div>
+      </header>
+
+      <section id="hero">
+        <img src="hero.jpg" alt="Unique Somobai Somiti" />
+      </section>
+
+      <!-- QR Code for Send Money -->
+      <section
+        id="qr-code"
+        class="container mx-auto mt-8 p-6 bg-white shadow rounded text-center"
+      >
+        <h2 class="text-2xl font-semibold mb-4">Send Money</h2>
+        <div class="flex justify-center items-center">
+          <img
+            src="qr.jpg"
+            alt="QR Code"
+            class="w-48 h-48 object-contain border rounded-lg shadow-lg"
+          />
+        </div>
+        <p class="mt-4 text-gray-600">Scan the QR code to send your payment.</p>
+      </section>
+
+      <!-- Submit Payment Form -->
+      <section
+        id="submit-payment"
+        class="container-fluid mx-auto mt-8 p-6 bg-white shadow rounded"
+      >
+        <h2 class="text-2xl font-semibold mb-4">Submit Payment Info</h2>
+        <form
+          id="paymentForm"
+          name="submit-to-google-sheet"
+          class="grid grid-cols-2 gap-4"
+        >
           <div>
-            <label
-              for="name"
-              class="block text-sm font-medium text-gray-700 mb-2"
-              >Your Name</label
+            <label for="shareholderName" class="block text-gray-700"
+              >Shareholder Name</label
             >
             <input
               type="text"
-              id="name"
-              name="name"
-              placeholder="Enter your name"
-              class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              id="shareholderName"
+              name="shareholderName"
+              class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
               required
             />
           </div>
-
-          <!-- Email Field -->
           <div>
-            <label
-              for="email"
-              class="block text-sm font-medium text-gray-700 mb-2"
-              >Your Email</label
+            <label for="shareNumber" class="block text-gray-700"
+              >Share Number</label
             >
             <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              type="number"
+              id="shareNumber"
+              name="shareNumber"
+              class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
               required
             />
           </div>
-
-          <!-- Message Field -->
           <div>
-            <label
-              for="message"
-              class="block text-sm font-medium text-gray-700 mb-2"
-              >Your Message</label
+            <label for="monthSelection" class="block text-gray-700"
+              >Select Month</label
             >
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Enter your message"
-              rows="5"
-              class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            <select
+              id="monthSelection"
+              name="Month"
+              class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
               required
-            ></textarea>
+            >
+              <option value="" disabled selected>Select a month</option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
           </div>
 
-          <!-- Submit Button -->
           <div>
+            <label for="numberOfShares" class="block text-gray-700"
+              >Number of Shares</label
+            >
+            <input
+              type="number"
+              id="numberOfShares"
+              name="numberOfShares"
+              class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
+          </div>
+          <div>
+            <label for="transactionId" class="block text-gray-700"
+              >Transaction ID</label
+            >
+            <input
+              type="text"
+              id="transactionId"
+              name="transactionId"
+              class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              required
+            />
+          </div>
+          <div>
+            <label for="paymentAmount" class="block text-gray-700"
+              >Payment Amount</label
+            >
+            <input
+              type="number"
+              id="paymentAmount"
+              name="paymentAmount"
+              class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              readonly
+            />
+          </div>
+
+          <!-- This div will conditionally create a full-width row only for the submit button -->
+          <div class="col-span-2">
             <button
               type="submit"
-              class="w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-600 transition duration-300"
+              class="w-full mt-5 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
             >
-              Send Message
+              Submit
             </button>
           </div>
         </form>
-      </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
-      <p>© 2025 Unique Somobai Somiti. All Rights Reserved.</p>
-    </footer>
+        <p id="statusMessage" class="mt-4"></p>
+      </section>
+
+      <!-- View Transactions Section -->
+      <section
+        id="view-transactions"
+        class="container mx-auto mt-8 p-6 bg-white shadow rounded"
+      >
+        <h2 class="text-2xl font-semibold mb-4">View Transactions</h2>
+        <iframe
+          src=""
+          id="googleSheet"
+          class="w-full h-96 border rounded"
+          title="Google Sheet"
+        ></iframe>
+      </section>
+
+      <section id="contact" class="bg-gray-100 py-8 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <!-- Section Title -->
+          <h2 class="text-3xl font-bold text-gray-800 mb-6">Get in Touch</h2>
+          <p class="text-gray-600 mb-8">
+            Have questions or want to work together? Reach out to me via email
+            or phone!
+          </p>
+
+          <!-- Contact Information -->
+          <div class="bg-white shadow-lg rounded-lg p-8 space-y-6">
+            <!-- Email Section -->
+            <div class="flex items-center">
+              <span class="text-gray-700 text-sm font-medium mr-4">Email:</span>
+              <a
+                href="mailto:debashisdhali104035@gmail.com"
+                class="text-blue-600 hover:underline"
+                >debashisdhali104035@gmail.com</a
+              >
+            </div>
+
+            <!-- Mobile Number Section -->
+            <div class="flex items-center">
+              <span class="text-gray-700 text-sm font-medium mr-4">Phone:</span>
+              <a href="01581019894" class="text-blue-600 hover:underline"
+                >01581019894</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <p>© 2025 Unique Somobai Somiti. All Rights Reserved.</p>
+      </footer>
+    </div>
 
     <script>
+      // Login Logic
+      const loginSection = document.getElementById("login-section");
+      const mainContent = document.getElementById("main-content");
+      const loginButton = document.getElementById("login-button");
+      const passwordInput = document.getElementById("password");
+      const loginError = document.getElementById("login-error");
+      const logoutButton = document.getElementById("logout-button");
+
+      // Hardcoded password (replace with a secure method in production)
+      const correctPassword = "2021";
+
+      // Check if the user is already logged in
+      function checkLoginState() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        if (isLoggedIn === "true") {
+          loginSection.style.display = "none"; // Hide login section
+          mainContent.style.display = "block"; // Show main content
+        } else {
+          loginSection.style.display = "block"; // Show login section
+          mainContent.style.display = "none"; // Hide main content
+        }
+      }
+
+      // Run the check on page load
+      checkLoginState();
+
+      loginButton.addEventListener("click", () => {
+        const enteredPassword = passwordInput.value.trim();
+
+        if (enteredPassword === correctPassword) {
+          localStorage.setItem("isLoggedIn", "true"); // Store login state
+          loginSection.style.display = "none"; // Hide login section
+          mainContent.style.display = "block"; // Show main content
+        } else {
+          loginError.style.display = "block"; // Show error message
+        }
+      });
+
+      // Logout Logic
+      logoutButton.addEventListener("click", () => {
+        localStorage.removeItem("isLoggedIn"); // Clear login state
+        mainContent.style.display = "none"; // Hide main content
+        loginSection.style.display = "block"; // Show login section
+        passwordInput.value = ""; // Clear password field
+        loginError.style.display = "none"; // Hide error message
+      });
+
       // Toggle Navbar
       const menuToggle = document.getElementById("menuToggle");
       const navbarMenu = document.getElementById("navbarMenu");
+      const icon = menuToggle.querySelector("svg");
+      const menuItems = document.querySelectorAll(".menu-item");
 
-      menuToggle.addEventListener("click", () => {
+      function toggleMenu() {
         navbarMenu.classList.toggle("hidden");
-      });
+        navbarMenu.classList.toggle("flex");
 
-      // Carousel functionality
-      let currentIndex = 0;
-      const carouselImages = document.querySelector(".carousel-images");
-      const totalImages = document.querySelectorAll(
-        ".carousel-images img"
-      ).length;
-
-      function updateCarousel() {
-        currentIndex = (currentIndex + 1) % totalImages;
-        carouselImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+        if (navbarMenu.classList.contains("hidden")) {
+          icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />`;
+        } else {
+          icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />`;
+        }
       }
 
-      setInterval(updateCarousel, 3000);
+      menuToggle.addEventListener("click", toggleMenu);
+
+      // Close menu when a menu item is clicked
+      menuItems.forEach((item) => {
+        item.addEventListener("click", toggleMenu);
+      });
+
+      // Handle screen resize
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024) {
+          navbarMenu.classList.remove("hidden");
+          icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />`;
+        } else {
+          navbarMenu.classList.add("hidden");
+        }
+      });
+
+      // Initial navbar visibility setup
+      if (window.innerWidth >= 1024) {
+        navbarMenu.classList.remove("hidden");
+      } else {
+        navbarMenu.classList.add("hidden");
+      }
 
       // Payment amount calculation
       function calculatePaymentAmount() {
@@ -395,6 +506,7 @@
             submitButton.textContent = "Submit Payment";
           });
       });
+
       // Embed Google Sheet
       document.getElementById("googleSheet").src =
         "https://docs.google.com/spreadsheets/d/14N6pJIRhZLS09DDChSjTAdFnMVd9ZZd2h-rIFTbTtH0/edit?gid=0#gid=0";
